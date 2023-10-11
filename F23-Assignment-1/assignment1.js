@@ -13,10 +13,10 @@ const Minimal_Shape =
             // Describe the where the points of a triangle are in space, and also describe their colors:
             // TODO: Edit the position and color here
             this.arrays.position = [
-                vec3(0, 0, 0), vec3(1, 0, 0), vec3(0, 1, 0),
+                vec3(0, 0, 0), vec3(1, 0, 0), vec3(0, 1, 0), vec3(1, 1, 0), vec3(1, 0, 0), vec3(0, 1, 0)
             ];
             this.arrays.color = [
-                color(1, 0, 0, 1), color(0, 1, 0, 1), color(0, 0, 1, 1), 
+                color(1, 0, 0, 1), color(0, 1, 0, 1), color(0, 0, 1, 1), color(1, 1, 0, 1), color(0, 1, 0, 1), color(0, 0, 1, 1)
             ];
         }
     }

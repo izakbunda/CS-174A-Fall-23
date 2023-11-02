@@ -124,7 +124,7 @@ export class Transforms_Sandbox extends Transforms_Sandbox_Base {
             // function times(), which generates products of matrices.
 
         // const blue = color(0, 0, 1, 1), yellow = color(1, 1, 0, 1);
-        const blue = hex_color("#1a9ffa"), yellow = hex_color("#fdc03a")
+        const blue = hex_color("#1a9ffa"), yellow = hex_color("#fdc03a"), white = hex_color("#ffffff")
         // Variable model_transform will be a local matrix value that helps us position shapes.
         // It starts over as the identity every single frame - coordinate axes at the origin.
         let model_transform = Mat4.identity();
@@ -139,15 +139,27 @@ export class Transforms_Sandbox extends Transforms_Sandbox_Base {
 
         // Position the root shape.  For this example, we'll use a box
         // shape, and place it at the coordinate origin 0,0,0:
-        model_transform = model_transform.times(Mat4.translation(0, 0, 0));
+        model_transform = model_transform.times(Mat4.translation(0, 0, 0))
+            .times(Mat4.scale(1, 2, 1))
+            // .times(Mat4.translation(0, -1.5, 0));
+
         // Draw the top box:
         this.shapes.box.draw(context, program_state, model_transform, this.materials.plastic.override(yellow));
 
         // Tweak our coordinate system downward 2 units for the next shape.
-        model_transform = model_transform.times(Mat4.translation(0, -2, 0));
+        model_transform = model_transform.times(Mat4.translation(0, -1.5, 0))
+            .times(Mat4.scale(1, 0.5, 1));
         // Draw the ball, a child of the hierarchy root.
         // The ball will have its own children as well.
         this.shapes.ball.draw(context, program_state, model_transform, this.materials.metal.override(blue));
+
+
+        //
+        // model_transform = model_transform.times(Mat4.translation(0, -2, 0));
+        // // Draw the ball, a child of the hierarchy root.
+        // // The ball will have its own children as well.
+        // this.shapes.ball.draw(context, program_state, model_transform, this.materials.metal.override(white));
+
 
         // Prepare to draw another box object 2 levels deep
         // within our hierarchy.
@@ -167,11 +179,40 @@ export class Transforms_Sandbox extends Transforms_Sandbox_Base {
         // That translation is enough for the box and ball volume to miss
         // one another (new box radius = 2, ball radius = 1, coordinate
         // frame axis is currently doubled in size).
+        // for (let x = 1; x < 4; x++) {
         model_transform = model_transform.times(Mat4.rotation(1, 0, 0, 1))
             .times(Mat4.scale(1, 2, 1))
             .times(Mat4.translation(0, -1.5, 0));
         // Draw the bottom (child) box:
         this.shapes.box.draw(context, program_state, model_transform, this.materials.plastic.override(yellow));
+        model_transform = model_transform.times(Mat4.scale(1, 0.5, 1))
+        // }
+
+        model_transform = model_transform.times(Mat4.translation(1, -4, 0))
+            .times(Mat4.rotation(1, 0, 0, 1))
+            .times(Mat4.scale(1, 2, 1));
+        // Draw the ball, a child of the hierarchy root.
+        // The ball will have its own children as well.
+        this.shapes.box.draw(context, program_state, model_transform, this.materials.metal.override(blue));
+        model_transform = model_transform.times(Mat4.scale(1, 0.5, 1))
+
+
+        model_transform = model_transform.times(Mat4.translation(1, -4, 0))
+            .times(Mat4.rotation(1, 0, 0, 1))
+            .times(Mat4.scale(1, 2, 1));
+        // Draw the ball, a child of the hierarchy root.
+        // The ball will have its own children as well.
+        this.shapes.box.draw(context, program_state, model_transform, this.materials.metal.override(yellow));
+        model_transform = model_transform.times(Mat4.scale(1, 0.5, 1))
+
+        model_transform = model_transform.times(Mat4.translation(1, -4, 0))
+            .times(Mat4.rotation(1, 0, 0, 1))
+            .times(Mat4.scale(1, 2, 1));
+        // Draw the ball, a child of the hierarchy root.
+        // The ball will have its own children as well.
+        this.shapes.box.draw(context, program_state, model_transform, this.materials.metal.override(blue));
+        model_transform = model_transform.times(Mat4.scale(1, 0.5, 1))
+
 
         // Note that our coordinate system stored in model_transform still has non-uniform scaling
         // due to our scale() call.  This could have undesired effects for subsequent transforms;
